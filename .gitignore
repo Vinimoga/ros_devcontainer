@@ -1,0 +1,17 @@
+# ROS 2
+build/
+install/
+log/
+
+# Python
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# Colcon
+.colcon/
+
+# Devcontainer cache
+.devcontainer/.cache/
