@@ -1,21 +1,25 @@
 # ROS 2 DevContainer – Starter Kit
 
-Este repositório fornece um **ambiente mínimo e portátil de desenvolvimento ROS 2**
-usando **Docker + VS Code DevContainer**.
----
+This repository provides a **minimal and portable ROS 2 development
+environment** using **Docker and VS Code Dev Containers**.
 
-## Requisitos
-
-- Docker
-- Docker Compose (normalmente já vem com Docker)
-- Visual Studio Code
-- Extensão **Dev Containers** do VS Code
-
-Nenhuma instalação de ROS 2 é necessária no host.
+It allows you to start developing ROS 2 applications without installing
+ROS 2 directly on your host system.
 
 ---
 
-## 📁 Estrutura do repositório
+## Requirements
+
+* Docker
+* Docker Compose (usually included with Docker)
+* Visual Studio Code
+* **Dev Containers** extension for VS Code
+
+No ROS 2 installation is required on the host machine.
+
+---
+
+## 📁 Repository Structure
 
 ```
 .
@@ -24,44 +28,44 @@ Nenhuma instalação de ROS 2 é necessária no host.
 │   ├── devcontainer.json
 │   └── post_start.sh
 ├── src/
-│   └── (seus pacotes ROS 2 ficam aqui)
+│   └── (your ROS 2 packages go here)
 ├── .gitignore
 └── README.md
-````
+```
 
-O diretório raiz (`/home/ws`) é o **workspace ROS 2**   
-O ROS 2 **só enxerga** o que está dentro da pasta `src/`
+The root directory (`/home/ws`) is the **ROS 2 workspace**.
+ROS 2 will **only detect packages** located inside the `src/` directory.
 
 ---
 
-## Como usar
+## Usage
 
-### Clonar o repositório
+### Clone the repository
 
 ```bash
 git clone https://github.com/Vinimoga/ros_devcontainer.git
 cd ros_devcontainer
-````
+```
 
 ---
 
-### Abrir no VS Code
+### Open in VS Code
 
 ```bash
 code .
 ```
 
-Clique no canto inferior esquerdo e aperte em:
+Click the green button in the bottom-left corner and select:
 
-> **“Reopen in Container?”**
+> **“Reopen in Container”**
 
-O container será construído automaticamente.
+The container will be built automatically.
 
 ---
 
-### Criar um pacote ROS 2 (exemplo em Python)
+### Create a ROS 2 package (Python example)
 
-Dentro do container:
+Inside the container:
 
 ```bash
 cd /home/ws/src
@@ -71,11 +75,11 @@ ros2 pkg create YOUR_PACKAGE \
   --dependencies rclpy std_msgs
 ```
 
-Isso cria um pacote ROS 2 padrão em Python.
+This creates a standard ROS 2 Python package.
 
 ---
 
-### Build do workspace
+### Build the workspace
 
 ```bash
 cd /home/ws
@@ -84,11 +88,19 @@ colcon build
 
 ---
 
-### Ambiente ROS (já feito automaticamente)
+### ROS environment (automatic)
 
-O container já executa no startup:
+The container automatically sources the ROS environment on startup:
 
 ```bash
 source /opt/ros/$ROS_DISTRO/setup.bash
 source /home/ws/install/setup.bash
 ```
+
+## Using this repository as a template
+
+If you cloned this repository and want to push to your own remote, update
+the Git remote:
+
+```bash
+git remote set-url origin git@github.com:YOUR_USER/YOUR_REPO.git
