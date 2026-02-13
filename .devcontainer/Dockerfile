@@ -27,9 +27,10 @@ RUN rosdep init || true \
 
 ENV SHELL=/bin/bash
 
+RUN apt-get update && apt-get install -y tree
+
 USER $USERNAME
 
-RUN apt-get update && apt-get install -y tree
 # Source automático do ROS
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 
