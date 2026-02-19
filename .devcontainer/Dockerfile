@@ -27,6 +27,21 @@ RUN rosdep init || true \
 
 ENV SHELL=/bin/bash
 
+# OpenCV + libs gráficas
+RUN apt-get update && apt-get install -y \
+    python3-opencv \
+    libgl1 \
+    libglib2.0-0 \
+    libegl1 \
+    libxkbcommon-x11-0 \
+    libxcb-xinerama0 \
+    libxcb-cursor0 \
+    v4l-utils \
+    && rm -rf /var/lib/apt/lists/*
+
+# PySide6 (corrigido para Ubuntu 24.04)
+RUN pip3 install --no-cache-dir --break-system-packages PySide6
+
 RUN apt-get update && apt-get install -y tree
 
 USER $USERNAME

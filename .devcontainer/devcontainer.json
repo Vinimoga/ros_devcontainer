@@ -12,7 +12,7 @@
     "workspaceMount": "source=${localWorkspaceFolder},target=/home/ws,type=bind",
     "customizations": {
         "vscode": {
-            "extensions":[
+            "extensions": [
                 "ms-vscode.cpptools",
                 "ms-vscode.cpptools-themes",
                 "twxs.cmake",
@@ -28,14 +28,16 @@
         "ROS_DOMAIN_ID": "69"
     },
     "runArgs": [
-        "--net=host",
+        "--privileged",
+        "--network=host",
+        "--device=/dev/video0",
+        "--group-add=video",
         "--pid=host",
-        "--ipc=host",
-        "-e", "DISPLAY=${env:DISPLAY}"
+        "--ipc=host"
     ],
     "mounts": [
-       "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
-       "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached"
+        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+        "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached"
     ],
     "postCreateCommand": "if [ -d src ]; then rosdep update && rosdep install --from-paths src --ignore-src -y; fi",
     "postStartCommand": "/bin/bash .devcontainer/post_start.sh"
