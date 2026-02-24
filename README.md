@@ -33,12 +33,17 @@ No ROS 2 installation is required on the host machine.
 └── README.md
 ```
 
-The root directory (`/home/ws`) is the **ROS 2 workspace**.
-ROS 2 will **only detect packages** located inside the `src/` directory.
+### Important
+
+* The root directory (/home/ws) is the ROS 2 workspace.
+
+* ROS 2 will only detect packages inside the src/ folder.
+
+* All builds must be executed from /home/ws.
 
 ---
 
-## Usage
+## Getting Started
 
 ### Clone the repository
 
@@ -55,35 +60,86 @@ cd ros_devcontainer
 code .
 ```
 
-Click the green button in the bottom-left corner and select:
+Then:
 
-> **“Reopen in Container”**
+  1. Press Ctrl + shift + p
+  2. Press `Dev Containers: Reopen in Container`
 
 The container will be built automatically.
 
 ---
 
-### Create a ROS 2 package (Python example)
+### Create a ROS 2 package (Python)
 
 Inside the container:
 
 ```bash
-cd /home/ws/src
-
+cd /home/ws
 ros2 pkg create YOUR_PACKAGE \
   --build-type ament_python \
   --dependencies rclpy std_msgs
 ```
 
-This creates a standard ROS 2 Python package.
+This creates a standard ROS 2 Python package inside `src`.
 
 ---
 
-### Build the workspace
+### Build the Workspace
 
 ```bash
 cd /home/ws
 colcon build
+source install/setup.bash
+```
+
+#### Development Mode (Recommended)
+
+```bash
+colcon build --symlink-install
+```
+
+This allows you to modify Python files without rebuilding every time.
+
+---
+
+### Run your Node
+
+If your package contains:
+
+```bash
+src/YOUR_PACKAGE/YOUR_PACKAGE/main.py
+```
+
+And your setup.py includes:
+
+```python
+entry_points={
+    'console_scripts': [
+        'main = YOUR_PACKAGE.main:main',
+    ],
+}
+```
+
+You can run your node using:
+
+```bash
+ros2 run YOUR_PACKAGE main
+```
+
+---
+
+### Launching with a Launch File
+
+If you create:
+
+```bash
+launch/system.launch.py
+```
+
+You can start your application with:
+
+```bash
+ros2 launch your_package_name system.launch.py
 ```
 
 ---
@@ -94,13 +150,12 @@ The container automatically sources the ROS environment on startup:
 
 ```bash
 source /opt/ros/$ROS_DISTRO/setup.bash
-source /home/ws/install/setup.bash
 ```
 
 ## Using this repository as a template
 
-If you cloned this repository and want to push to your own remote, update
-the Git remote:
+If you cloned this repository and want to push to your own remote, fork this enviroment
+or update the Git remote:
 
 ```bash
 git remote set-url origin git@github.com:YOUR_USER/YOUR_REPO.git
